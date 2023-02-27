@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 
 export const ContactForm = ({ onSubmitForm, onChangeName }) => (
