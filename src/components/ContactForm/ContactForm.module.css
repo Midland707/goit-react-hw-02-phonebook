@@ -1,18 +1,18 @@
 .form {
   border: 1px solid;
-  width: 400px;
+  width: 300px;
   padding: 10px;
   margin-bottom: 20px;
 }
 
 .formNameTitle {
   display: block;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .formInput {
   display: block;
-  width: 200px;
+  width: 180px;
   margin-bottom: 20px;
 }
 

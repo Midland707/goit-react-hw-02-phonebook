@@ -27,7 +27,7 @@ export class App extends Component {
     const newArray = this.state.contacts.slice(); // Create a copy
     newArray.push(obj); // Push the object
     this.setState({ contacts: newArray });
-    // eventSubmit.form.reset();
+    eventSubmit.target.reset();
   };
 
   onChangeName = eventName => {
@@ -39,10 +39,18 @@ export class App extends Component {
   };
 
   onFilterByName = eventFilter => {
-    this.setState({ filter: eventFilter.target.value });
+    const filterValue = eventFilter.target.value.toLowerCase();
+    const items = this.state.contacts.filter(
+      item => item.name.toLowerCase().indexOf(filterValue) !== -1
+    );
+    this.setState({ filter: items });
   };
 
   render() {
+    let renderArray;
+    if (this.state.filter === '') renderArray = this.state.contacts;
+    else renderArray = this.state.filter;
+
     return (
       <div className={css.section}>
         <h1 className={css.title}>Phonebook</h1>
@@ -54,7 +62,7 @@ export class App extends Component {
 
         <h2 className={css.title}>Contacts</h2>
         <Filter onFilterByName={this.onFilterByName} />
-        <ContactList contacts={this.state.contacts} />
+        <ContactList contacts={renderArray} />
       </div>
     );
   }

@@ -3,11 +3,17 @@ import css from './ContactList.module.css';
 
 export const ContactList = ({ contacts }) => (
   <ul className={css.contactList}>
-    {contacts.map(item => (
-      <li key={item.id} className={css.contactItem}>
-        {item.name}: {item.number}
-      </li>
-    ))}
+    {contacts[0] ? (
+      contacts.map(item => (
+        <li key={item.id} className={css.contactItem}>
+          {item.name}: {item.number}
+        </li>
+      ))
+    ) : (
+      <div className={css.errorMessage}>
+        I don't find it! Please repeat search!
+      </div>
+    )}
   </ul>
 );
 

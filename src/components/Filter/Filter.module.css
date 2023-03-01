@@ -1,10 +1,10 @@
 .filterNameTitle {
   display: block;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .filterInput {
   display: block;
-  width: 200px;
+  width: 180px;
   margin-bottom: 20px;
 }
