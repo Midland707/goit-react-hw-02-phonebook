@@ -29,7 +29,6 @@ export class App extends Component {
     const alertState = this.state.contacts.findIndex(
       option => option.name === this.state.name
     );
-    console.log('alertState =', alertState);
     if (alertState === -1) this.setState({ contacts: newArray });
     else alert(`${this.state.name} is already in contacts`);
     eventSubmit.target.reset();
@@ -51,6 +50,17 @@ export class App extends Component {
     this.setState({ filter: items });
   };
 
+  onClickDelete = eventDelete => {
+    const array = [...this.state.contacts];
+    const index = this.state.contacts.findIndex(
+      option => option.id === eventDelete.target.id
+    );
+    if (index > -1) {
+      array.splice(index, 1);
+    }
+    this.setState({ contacts: array });
+  };
+
   render() {
     let renderArray;
     if (this.state.filter === '') renderArray = this.state.contacts;
@@ -67,7 +77,10 @@ export class App extends Component {
 
         <h2 className={css.title}>Contacts</h2>
         <Filter onFilterByName={this.onFilterByName} />
-        <ContactList contacts={renderArray} />
+        <ContactList
+          contacts={renderArray}
+          onClickDelete={this.onClickDelete}
+        />
       </div>
     );
   }
