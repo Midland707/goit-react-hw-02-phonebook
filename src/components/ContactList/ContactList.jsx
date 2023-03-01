@@ -3,11 +3,12 @@ import css from './ContactList.module.css';
 
 export const ContactList = ({ contacts }) => (
   <ul className={css.contactList}>
-    {/* {contacts.map((item, index) => (
-      <li key={index} className={css.contactItem}>
-        {item}
-      </li>
-    ))} */}
+    {contacts[0] &&
+      contacts.map(item => (
+        <li key={item.id} className={css.contactItem}>
+          {item.name}
+        </li>
+      ))}
   </ul>
 );
 

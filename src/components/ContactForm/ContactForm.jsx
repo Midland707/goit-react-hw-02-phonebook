@@ -3,7 +3,7 @@ import css from './ContactForm.module.css';
 
 export const ContactForm = ({ onSubmitForm, onChangeName }) => (
   <form className={css.form} onSubmit={onSubmitForm}>
-    <label>
+    <label className={css.formNameTitle}>
       Name
       <input
         className={css.formInput}
