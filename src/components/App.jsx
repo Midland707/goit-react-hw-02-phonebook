@@ -38,7 +38,7 @@ export class App extends Component {
     this.setState({ number: eventNumber.target.value });
   };
 
-  onSearchName = eventFilter => {
+  onFilterByName = eventFilter => {
     this.setState({ filter: eventFilter.target.value });
   };
 
@@ -53,7 +53,7 @@ export class App extends Component {
         />
 
         <h2 className={css.title}>Contacts</h2>
-        <Filter onSearchName={this.onSearchName} />
+        <Filter onFilterByName={this.onFilterByName} />
         <ContactList contacts={this.state.contacts} />
       </div>
     );
