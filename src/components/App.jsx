@@ -26,7 +26,12 @@ export class App extends Component {
     };
     const newArray = this.state.contacts.slice(); // Create a copy
     newArray.push(obj); // Push the object
-    this.setState({ contacts: newArray });
+    const alertState = this.state.contacts.findIndex(
+      option => option.name === this.state.name
+    );
+    console.log('alertState =', alertState);
+    if (alertState === -1) this.setState({ contacts: newArray });
+    else alert(`${this.state.name} is already in contacts`);
     eventSubmit.target.reset();
   };
 
