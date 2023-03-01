@@ -6,7 +6,7 @@ export const ContactList = ({ contacts }) => (
     {contacts[0] &&
       contacts.map(item => (
         <li key={item.id} className={css.contactItem}>
-          {item.name}
+          {item.name}: {item.number}
         </li>
       ))}
   </ul>
