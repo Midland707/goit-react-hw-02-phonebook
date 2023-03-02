@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { nanoid } from 'nanoid';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
@@ -12,49 +11,20 @@ export class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    name: '',
-    number: '',
     filter: '',
   };
 
-  onSubmitForm = eventSubmit => {
-    eventSubmit.preventDefault();
-    const obj = {
-      id: nanoid(),
-      name: this.state.name,
-      number: this.state.number,
-    };
-    const newArray = this.state.contacts.slice(); // Create a copy
-    newArray.push(obj); // Push the object
-    const alertState = this.state.contacts.findIndex(
-      option => option.name === this.state.name
-    );
-    if (alertState === -1) {
-      this.setState({
-        contacts: newArray 
+  onSubmitForm = data => {
+    const contactsArray = this.state.contacts.slice(); // Create a copy
+    contactsArray.push(data); // Push the object
+    this.setState({
+      contacts: contactsArray,
     });
-    eventSubmit.target.reset();}
-    else alert(`${this.state.name} is already in contacts`);
-  };
-
-  onChangeName = eventName => {
-    this.setState({ name: eventName.target.value });
-  };
-
-  onChangeNumber = eventNumber => {
-    this.setState({ number: eventNumber.target.value });
   };
 
   onFilterByName = eventFilter => {
-    const runContacts = this.state.contacts;
-    const filterValue = eventFilter.target.value.toLowerCase();
-    const items = this.state.contacts.filter(
-      item => item.name.toLowerCase().indexOf(filterValue) !== -1
-    );
-    this.setState({ filter: eventFilter.target.value });
-    this.setState({ contacts: items });
-    if(this.state.filter ==='')
-    this.setState({ contacts: runContacts });
+    const filterValue = eventFilter.target.value.toLowerCase().trim();
+    this.setState({ filter: filterValue });
   };
 
   onClickDelete = eventDelete => {
@@ -62,30 +32,25 @@ export class App extends Component {
     const index = this.state.contacts.findIndex(
       option => option.id === eventDelete.target.id
     );
-    if (index > -1) {
-      array.splice(index, 1);
-    }
+    if (index > -1) array.splice(index, 1);
     this.setState({ contacts: array });
   };
 
   render() {
-    // let renderArray;
-    // if (this.state.filter === '') renderArray = this.state.contacts;
-    // else renderArray = this.state.filter;
-
+    const filterContacts = this.state.contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(this.state.filter)
+    );
     return (
       <div className={css.section}>
         <h1 className={css.title}>Phonebook</h1>
         <ContactForm
           onSubmitForm={this.onSubmitForm}
-          onChangeName={this.onChangeName}
-          onChangeNumber={this.onChangeNumber}
+          contacts={this.state.contacts}
         />
-
         <h2 className={css.title}>Contacts</h2>
         <Filter onFilterByName={this.onFilterByName} />
         <ContactList
-          contacts={this.state.contacts}
+          contacts={filterContacts}
           filter={this.state.filter}
           onClickDelete={this.onClickDelete}
         />
