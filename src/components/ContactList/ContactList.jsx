@@ -1,24 +1,15 @@
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
+import { ContactItem } from 'components/ContactList/ContactItem/ContactItem';
 
-export const ContactList = ({ contacts, onClickDelete }) => (
+export const ContactList = ({ contacts, onClickDelete, filter}) => (
   <ul className={css.contactList}>
     {contacts[0] ? (
-      contacts.map(item => (
-        <li key={item.id} className={css.contactItem}>
-          {item.name}: {item.number}
-          <button
-            id={item.id}
-            className={css.deleteButton}
-            onClick={onClickDelete}
-          >
-            Delete
-          </button>
-        </li>
-      ))
+            <ContactItem contacts={contacts}
+          onClickDelete={onClickDelete} />
     ) : (
-      <div className={css.errorMessage}>
-        I don't find it! Please repeat search!
+        <div className={css.errorMessage}>
+          {filter ? (<span>I don't find it! Please repeat search!</span>) : (<span>Contacts is empty</span>)}
       </div>
     )}
   </ul>

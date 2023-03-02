@@ -29,9 +29,12 @@ export class App extends Component {
     const alertState = this.state.contacts.findIndex(
       option => option.name === this.state.name
     );
-    if (alertState === -1) this.setState({ contacts: newArray });
+    if (alertState === -1) {
+      this.setState({
+        contacts: newArray 
+    });
+    eventSubmit.target.reset();}
     else alert(`${this.state.name} is already in contacts`);
-    eventSubmit.target.reset();
   };
 
   onChangeName = eventName => {
@@ -43,11 +46,15 @@ export class App extends Component {
   };
 
   onFilterByName = eventFilter => {
+    const runContacts = this.state.contacts;
     const filterValue = eventFilter.target.value.toLowerCase();
     const items = this.state.contacts.filter(
       item => item.name.toLowerCase().indexOf(filterValue) !== -1
     );
-    this.setState({ filter: items });
+    this.setState({ filter: eventFilter.target.value });
+    this.setState({ contacts: items });
+    if(this.state.filter ==='')
+    this.setState({ contacts: runContacts });
   };
 
   onClickDelete = eventDelete => {
@@ -62,9 +69,9 @@ export class App extends Component {
   };
 
   render() {
-    let renderArray;
-    if (this.state.filter === '') renderArray = this.state.contacts;
-    else renderArray = this.state.filter;
+    // let renderArray;
+    // if (this.state.filter === '') renderArray = this.state.contacts;
+    // else renderArray = this.state.filter;
 
     return (
       <div className={css.section}>
@@ -78,7 +85,8 @@ export class App extends Component {
         <h2 className={css.title}>Contacts</h2>
         <Filter onFilterByName={this.onFilterByName} />
         <ContactList
-          contacts={renderArray}
+          contacts={this.state.contacts}
+          filter={this.state.filter}
           onClickDelete={this.onClickDelete}
         />
       </div>
