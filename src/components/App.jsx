@@ -16,15 +16,18 @@ export class App extends Component {
 
   onSubmitForm = (data, resetForm) => {
     const { name } = data;
-    const alertState = this.state.contacts.findIndex(
+    const alertState = this.state.contacts.find(
       contact => contact.name === name
     );
-    if (alertState === -1) {
-      this.setState(prevState => ({
-        contacts: [...prevState.contacts, data],
-      }));
-      resetForm.reset();
-    } else alert(`${name} is already in contacts`);
+    if (alertState) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, data],
+    }));
+    resetForm.reset();
   };
 
   onFilterByName = eventFilter => {
